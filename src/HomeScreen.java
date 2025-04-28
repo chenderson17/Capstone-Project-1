@@ -67,23 +67,25 @@ public class HomeScreen {
     }
     public static void addDeposit(Scanner in,String[] exampleUser){
             try {
+                /*
                 System.out.printf("Enter the account number for the deposit or press e to exit: ");
                 int accountNumber = in.nextInt();
-                System.out.printf("Enter the amount you want to deposit: ");
+                */
+                System.out.printf("Enter the amount you want to deposit:$");
                 double deposit = in.nextDouble();
                 handleDeposit(in,deposit);
                 while(!handleDeposit(in,deposit).equalsIgnoreCase("y")){
-                    System.out.printf("Enter the amount you want to deposit: ");
+                    System.out.printf("Enter the amount you want to deposit:$ ");
                     deposit = in.nextDouble();
                     handleDeposit(in,deposit);
                 }
                 System.out.println("Deposit Complete. Taking you back to the Main Menu");
                 File file = new File(String.format("%s-%d-Deposit", exampleUser[0], Integer.parseInt(exampleUser[1]), deposit));
-                FileWriter writer = new FileWriter(file, true);
+                FileWriter writer = new FileWriter("transactions.csv", true);
                 LocalDateTime date = LocalDateTime.now();
-                DateTimeFormatter format = DateTimeFormatter.ofPattern("MM-dd-yyyy HH:mm:ss");
+                DateTimeFormatter format = DateTimeFormatter.ofPattern("yyyy-MM-dd|HH:mm:ss");
                 String formattedDate = date.format(format);
-                writer.write(String.format("Date: %s| Transaction Type: Deposit | Amount: $%.2f\n", formattedDate, deposit));
+                writer.write(String.format("%s|Deposit|$%.2f\n", formattedDate, deposit));
                 writer.close();
             } catch (Exception e) {
                 e.printStackTrace();
@@ -94,7 +96,6 @@ public class HomeScreen {
     }
     public static String handleDeposit(Scanner in,double deposit){
         System.out.printf("Does this look correct $%.2f (Y/N):", deposit);
-        String confirm = in.nextLine();
-        return confirm;
+        return in.nextLine();
     }
 }
