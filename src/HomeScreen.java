@@ -15,6 +15,7 @@ import java.util.*;
 public class HomeScreen {
 
     public static void main(String[] args) {
+        String userInputPrompt = "Your Input: ";
         System.out.print("""
                            Welcome to Crestwood Financial\n
                            Type D: to add a deposit\n
@@ -23,8 +24,25 @@ public class HomeScreen {
                            Type X: to exit\n
                            Your Input: """);
         Scanner in = new Scanner(System.in);
-        String choice = in.nextLine();
-
+        String choice = in.nextLine().toLowerCase();
+        //case manager
+        while(!choice.equalsIgnoreCase("X")) {
+            switch (choice) {
+                case "d":
+                    System.out.println("add a deposit");
+                    break;
+                case "p":
+                    System.out.println("make a payment");
+                    break;
+                case "l":
+                    System.out.println("display ledger screen");
+                    break;
+                default:
+                    System.out.println("Sorry, I didn't recognize that. Please try again or Press X to exit.");
+            }
+            System.out.print(userInputPrompt);
+            choice = in.nextLine();
+        }
     }
 
 }
