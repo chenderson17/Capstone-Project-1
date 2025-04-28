@@ -16,20 +16,22 @@ public class HomeScreen {
 
     public static void main(String[] args) {
         String userInputPrompt = "Your Input: ";
-        System.out.print("""
-                           Welcome to Crestwood Financial\n
+        String menu = String.format("""
+                           Welcome back to Crestwood Financial\n
                            Type D: to add a deposit\n
                            Type P: to make a payment\n
                            Type L: to display the ledger screen\n
                            Type X: to exit\n
                            Your Input: """);
+        System.out.printf(menu);
         Scanner in = new Scanner(System.in);
         String choice = in.nextLine().toLowerCase();
         //case manager
-        while(!choice.equalsIgnoreCase("X")) {
+        while(!choice.equals("x")){
             switch (choice) {
                 case "d":
                     System.out.println("add a deposit");
+                    addDeposit(in);
                     break;
                 case "p":
                     System.out.println("make a payment");
@@ -44,5 +46,15 @@ public class HomeScreen {
             choice = in.nextLine();
         }
     }
-
+    public static void addDeposit(Scanner in){
+        System.out.printf("Enter the account number for the deposit: ");
+        int accountNumber = in.nextInt();
+        System.out.printf("Enter the amount you want to deposit: ");
+        double deposit = in.nextDouble();
+        System.out.printf("Does this look correct $%.2f (Y/N):", deposit);
+        String confirm = in.next();
+        System.out.println("Deposit Complete. Taking you back to the Main Menu");
+        in.nextLine();
+        //TODO: ADD A WRITE FUNCTION
+    }
 }
