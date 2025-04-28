@@ -1,15 +1,17 @@
-//TIP To <b>Run</b> code, press <shortcut actionId="Run"/> or
-// click the <icon src="AllIcons.Actions.Execute"/> icon in the gutter.
+/***
+ * TODO:
+ * The home screen should give the user the following options. The
+ * application should continue to run until the user chooses to exit.
+ * § D) Add Deposit - prompt user for the deposit information and
+ * save it to the csv file
+ * § P) Make Payment (Debit) - prompt user for the debit
+ * information and save it to the csv file
+ * § L) Ledger - display the ledger screen
+ * § X) Exit - exit the application
+ */
+import java.util.*;
 public class Main {
     public static void main(String[] args) {
-        //TIP Press <shortcut actionId="ShowIntentionActions"/> with your caret at the highlighted text
-        // to see how IntelliJ IDEA suggests fixing it.
-        System.out.printf("Hello and welcome!");
 
-        for (int i = 1; i <= 5; i++) {
-            //TIP Press <shortcut actionId="Debug"/> to start debugging your code. We have set one <icon src="AllIcons.Debugger.Db_set_breakpoint"/> breakpoint
-            // for you, but you can always add more by pressing <shortcut actionId="ToggleLineBreakpoint"/>.
-            System.out.println("i = " + i);
-        }
     }
 }
