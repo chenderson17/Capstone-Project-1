@@ -59,7 +59,7 @@ public class HomeScreen {
                     System.out.println("display ledger screen");
                     break;
                 default:
-                    System.out.println("Sorry, I didn't recognize that. Please try again or Press X to exit.");
+                    System.out.println("Sorry, I didn't recognize that command. Please try again or Press X to exit.");
             }
             System.out.print(menu);
             choice = in.nextLine().toLowerCase();
@@ -85,7 +85,6 @@ public class HomeScreen {
                 String formattedDate = date.format(format);
                 writer.write(String.format("Date: %s| Transaction Type: Deposit | Amount: $%.2f\n", formattedDate, deposit));
                 writer.close();
-                in.nextLine();
             } catch (Exception e) {
                 e.printStackTrace();
             }
