@@ -9,10 +9,22 @@
  * § L) Ledger - display the ledger screen
  * § X) Exit - exit the application
  */
+import java.util.*;
+
 
 public class HomeScreen {
 
     public static void main(String[] args) {
+        System.out.print("""
+                           Welcome to Crestwood Financial\n
+                           Type D: to add a deposit\n
+                           Type P: to make a payment\n
+                           Type L: to display the ledger screen\n
+                           Type X: to exit\n
+                           Your Input: """);
+        Scanner in = new Scanner(System.in);
+        String choice = in.nextLine();
 
     }
+
 }
