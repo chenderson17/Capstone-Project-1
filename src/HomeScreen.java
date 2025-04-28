@@ -85,11 +85,11 @@ public class HomeScreen {
     public static void makePayment(Scanner in){
         //what are you buying
         try {
-            System.out.printf("Enter what you are purchasing/transaction description:");
+            System.out.printf("Enter the Transaction Description/Item name:");
             String item = in.nextLine();
             //price of what you are buying
             System.out.printf("Enter the price of the item:$ ");
-            double price = in.nextDouble() * -1.0;
+            double price = in.nextDouble();
             //who are you buying it from
             System.out.printf("What is the sellers name: ");
             String sellerName = in.next();
@@ -104,8 +104,7 @@ public class HomeScreen {
     public static String getFormattedDate (){
         LocalDateTime date = LocalDateTime.now();
         DateTimeFormatter format = DateTimeFormatter.ofPattern("yyyy-MM-dd|HH:mm:ss");
-        String formattedDate = date.format(format);
-        return formattedDate;
+        return date.format(format);
     }
 
 }
