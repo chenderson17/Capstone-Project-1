@@ -9,12 +9,17 @@
  * § L) Ledger - display the ledger screen
  * § X) Exit - exit the application
  */
+import java.io.FileWriter;
 import java.util.*;
 
 
 public class HomeScreen {
 
     public static void main(String[] args) {
+
+
+
+
         String userInputPrompt = "Your Input: ";
         String menu = String.format("""
                            Welcome back to Crestwood Financial\n
@@ -47,14 +52,24 @@ public class HomeScreen {
         }
     }
     public static void addDeposit(Scanner in){
-        System.out.printf("Enter the account number for the deposit: ");
-        int accountNumber = in.nextInt();
-        System.out.printf("Enter the amount you want to deposit: ");
-        double deposit = in.nextDouble();
-        System.out.printf("Does this look correct $%.2f (Y/N):", deposit);
-        String confirm = in.next();
-        System.out.println("Deposit Complete. Taking you back to the Main Menu");
-        in.nextLine();
+        try {
+
+            System.out.printf("Enter the account number for the deposit: ");
+            int accountNumber = in.nextInt();
+            System.out.printf("Enter the amount you want to deposit: ");
+            double deposit = in.nextDouble();
+            System.out.printf("Does this look correct $%.2f (Y/N):", deposit);
+            String confirm = in.next();
+            System.out.println("Deposit Complete. Taking you back to the Main Menu");
+            String file = String.format("%d-Deposit",accountNumber,deposit);
+            FileWriter writer = new FileWriter(file);
+            writer.write("I am a deposit");
+            writer.close();
+            in.nextLine();
+        }
+        catch (Exception e){
+
+        }
         //TODO: ADD A WRITE FUNCTION
     }
 }
