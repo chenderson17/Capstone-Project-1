@@ -22,17 +22,6 @@ import java.util.*;
 public class HomeScreen {
 
     public static void main(String[] args) {
-
-        /**
-         * Example User:
-         * Name: Jerry Hendricks
-         * Checking Account Number: 11087624
-         * Savings Account Number: 87610291
-         */
-        String[] exampleUser = {"Jerry Hendricks","11087624", "87610291"};
-        /*
-         * User(String firstName, String lastName, int checkingAccountNumber, double checkingAccountBalance, int savingsAccountNumber, double savingsAccountBalance)
-         */
         ArrayList<User> users = new ArrayList<>();
         String userInputPrompt = "Your Input: ";
         String menu = String.format("""
@@ -50,10 +39,11 @@ public class HomeScreen {
             switch (choice) {
                 case "d":
                     System.out.println("add a deposit");
-                    addDeposit(in,exampleUser);
+                    addDeposit(in);
                     break;
                 case "p":
                     System.out.println("make a payment");
+                    makePayment(in);
                     break;
                 case "l":
                     System.out.println("display ledger screen");
@@ -65,7 +55,7 @@ public class HomeScreen {
             choice = in.nextLine().toLowerCase();
         }
     }
-    public static void addDeposit(Scanner in,String[] exampleUser){
+    public static void addDeposit(Scanner in){
             try {
                 /*
                 System.out.printf("Enter the account number for the deposit or press e to exit: ");
@@ -80,22 +70,42 @@ public class HomeScreen {
                     handleDeposit(in,deposit);
                 }
                 System.out.println("Deposit Complete. Taking you back to the Main Menu");
-                File file = new File(String.format("%s-%d-Deposit", exampleUser[0], Integer.parseInt(exampleUser[1]), deposit));
                 FileWriter writer = new FileWriter("transactions.csv", true);
-                LocalDateTime date = LocalDateTime.now();
-                DateTimeFormatter format = DateTimeFormatter.ofPattern("yyyy-MM-dd|HH:mm:ss");
-                String formattedDate = date.format(format);
-                writer.write(String.format("%s|Deposit|$%.2f\n", formattedDate, deposit));
+                String formattedDate = getFormattedDate();
+                writer.write(String.format("%s|Deposit|$%.2f\n", getFormattedDate(), deposit));
                 writer.close();
             } catch (Exception e) {
                 e.printStackTrace();
             }
     }
-    public static void makePayment(){
-
-    }
     public static String handleDeposit(Scanner in,double deposit){
         System.out.printf("Does this look correct $%.2f (Y/N):", deposit);
         return in.nextLine();
     }
+    public static void makePayment(Scanner in){
+        //what are you buying
+        try {
+            System.out.printf("Enter what you are purchasing/transaction description:");
+            String item = in.nextLine();
+            //price of what you are buying
+            System.out.printf("Enter the price of the item:$ ");
+            double price = in.nextDouble() * -1.0;
+            //who are you buying it from
+            System.out.printf("What is the sellers name: ");
+            String sellerName = in.next();
+            FileWriter writer = new FileWriter("transactions.csv", true);
+            writer.write(String.format("%s|%s|$%.2f\n",getFormattedDate(),item,price,sellerName));
+            writer.close();
+        }
+        catch(Exception error){
+            System.out.println(error);
+        }
+    }
+    public static String getFormattedDate (){
+        LocalDateTime date = LocalDateTime.now();
+        DateTimeFormatter format = DateTimeFormatter.ofPattern("yyyy-MM-dd|HH:mm:ss");
+        String formattedDate = date.format(format);
+        return formattedDate;
+    }
+
 }
