@@ -11,7 +11,11 @@
  */
 import java.io.File;
 import java.io.FileWriter;
+import java.text.DateFormat;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
 import java.util.*;
 
 
@@ -26,10 +30,13 @@ public class HomeScreen {
          * Savings Account Number: 87610291
          */
         String[] exampleUser = {"Jerry Hendricks","11087624", "87610291"};
-
+        /*
+         * User(String firstName, String lastName, int checkingAccountNumber, double checkingAccountBalance, int savingsAccountNumber, double savingsAccountBalance)
+         */
+        ArrayList<User> users = new ArrayList<>();
         String userInputPrompt = "Your Input: ";
         String menu = String.format("""
-                           Welcome back to Crestwood Financial\n
+                           Thank you for choosing Crestwood Financial\n
                            Type D: to add a deposit\n
                            Type P: to make a payment\n
                            Type L: to display the ledger screen\n
@@ -54,29 +61,41 @@ public class HomeScreen {
                 default:
                     System.out.println("Sorry, I didn't recognize that. Please try again or Press X to exit.");
             }
-            System.out.print(userInputPrompt);
-            choice = in.nextLine();
+            System.out.print(menu);
+            choice = in.nextLine().toLowerCase();
         }
     }
     public static void addDeposit(Scanner in,String[] exampleUser){
-        try {
+            try {
+                System.out.printf("Enter the account number for the deposit or press e to exit: ");
+                int accountNumber = in.nextInt();
+                System.out.printf("Enter the amount you want to deposit: ");
+                double deposit = in.nextDouble();
+                handleDeposit(in,deposit);
+                while(!handleDeposit(in,deposit).equalsIgnoreCase("y")){
+                    System.out.printf("Enter the amount you want to deposit: ");
+                    deposit = in.nextDouble();
+                    handleDeposit(in,deposit);
+                }
+                System.out.println("Deposit Complete. Taking you back to the Main Menu");
+                File file = new File(String.format("%s-%d-Deposit", exampleUser[0], Integer.parseInt(exampleUser[1]), deposit));
+                FileWriter writer = new FileWriter(file, true);
+                LocalDateTime date = LocalDateTime.now();
+                DateTimeFormatter format = DateTimeFormatter.ofPattern("MM-dd-yyyy HH:mm:ss");
+                String formattedDate = date.format(format);
+                writer.write(String.format("Date: %s| Transaction Type: Deposit | Amount: $%.2f\n", formattedDate, deposit));
+                writer.close();
+                in.nextLine();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+    }
+    public static void makePayment(){
 
-            System.out.printf("Enter the account number for the deposit: ");
-            int accountNumber = in.nextInt();
-            System.out.printf("Enter the amount you want to deposit: ");
-            double deposit = in.nextDouble();
-            System.out.printf("Does this look correct $%.2f (Y/N):", deposit);
-            String confirm = in.next();
-            System.out.println("Deposit Complete. Taking you back to the Main Menu");
-            File file = new File(String.format("%s-%d-Deposit",exampleUser[0],Integer.parseInt(exampleUser[1]),deposit));
-            FileWriter writer = new FileWriter(file,true);
-            LocalDate date = LocalDate.now();
-            writer.write(String.format("Date:%s | Transaction Type: Deposit | Amount: $%.2f\n",date,deposit));
-            writer.close();
-            in.nextLine();
-        }
-        catch (Exception e){
-
-        }
+    }
+    public static String handleDeposit(Scanner in,double deposit){
+        System.out.printf("Does this look correct $%.2f (Y/N):", deposit);
+        String confirm = in.nextLine();
+        return confirm;
     }
 }
