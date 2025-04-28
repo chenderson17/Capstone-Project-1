@@ -9,8 +9,9 @@
  * § L) Ledger - display the ledger screen
  * § X) Exit - exit the application
  */
-import java.util.*;
-public class Main {
+
+public class HomeScreen {
+
     public static void main(String[] args) {
 
     }
