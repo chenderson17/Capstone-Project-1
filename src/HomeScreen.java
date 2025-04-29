@@ -95,7 +95,7 @@ public class HomeScreen {
             System.out.printf("What is the sellers name: ");
             String sellerName = in.next();
             FileWriter writer = new FileWriter("transactions.csv", true);
-            writer.write(String.format("%s|%s|%.2f\n",getFormattedDate(),item,price,sellerName));
+            writer.write(String.format("%s|%s|%s|%.2f\n",getFormattedDate(),item,sellerName,price));
             writer.close();
         }
         catch(Exception error){
@@ -191,7 +191,9 @@ public class HomeScreen {
                                 reports("py");
                                 break;
                             case "5":
-                                System.out.println("Search by vendor");
+                                System.out.printf("Search by vendor: ");
+                                Scanner sc = new Scanner(System.in);
+                                reports(sc.nextLine());
                                 break;
                             default:
                                 System.out.println("Sorry, I didn't recognize that command");
@@ -261,7 +263,15 @@ public class HomeScreen {
             }
             else if(report.equals("py") && date.getYear() == current.getYear() - 1){
                 //previous year
+
                 System.out.println(transaction);
+            }
+            else{
+                //search
+                if(parts[3].toLowerCase().contains(report.toLowerCase())){
+                    System.out.println(transaction);
+                }
+
             }
 
         }
