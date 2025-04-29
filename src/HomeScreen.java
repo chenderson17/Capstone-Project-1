@@ -91,9 +91,10 @@ public class HomeScreen {
             //price of what you are buying
             System.out.printf("Enter the price of the item: ");
             double price = in.nextDouble();
+            in.nextLine();
             //who are you buying it from
             System.out.printf("What is the sellers name: ");
-            String sellerName = in.next();
+            String sellerName = in.nextLine();
             FileWriter writer = new FileWriter("transactions.csv", true);
             writer.write(String.format("%s|%s|%s|%.2f\n",getFormattedDate(),item,sellerName,price));
             writer.close();
