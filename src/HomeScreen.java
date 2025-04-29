@@ -137,9 +137,8 @@ public class HomeScreen {
                               * 4 - Previous Year
                               * 5 - Search by Vendor
                               * 0 - Back
-                              * H - Go back to home page\n
-                          Your Input: 
-                          """);
+                              * H - Go back to home page
+                          Your Input: """);
         String choice = in.nextLine().toLowerCase();
         while(!choice.equals("h")){
             switch(choice) {
@@ -171,7 +170,7 @@ public class HomeScreen {
                                 4 - Previous Year
                                 5 - Search by Vendor
                                 0 - Back
-                                """);
+                                Your Input: """);
                         choice = in.nextLine().toLowerCase();
                         switch (choice){
                             case "1":
@@ -216,9 +215,8 @@ public class HomeScreen {
                               * 4 - Previous Year
                               * 5 - Search by Vendor
                               * 0 - Back
-                              * H - Go back to home page\n
-                          Your Input: 
-                          """);
+                              * H - Go back to home page
+                          Your Input: """);
              choice = in.nextLine().toLowerCase();
 
         }
