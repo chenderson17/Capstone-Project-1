@@ -25,11 +25,11 @@ public class HomeScreen {
         ArrayList<User> users = new ArrayList<>();
         String userInputPrompt = "Your Input: ";
         String menu = String.format("""
-                           Thank you for choosing Crestwood Financial\n
-                           Type D: to add a deposit\n
-                           Type P: to make a payment\n
-                           Type L: to display the ledger screen\n
-                           Type X: to exit\n
+                           Thank you for choosing Crestwood Financial
+                           Type D: to add a deposit
+                           Type P: to make a payment
+                           Type L: to display the ledger screen
+                           Type X: to exit
                            Your Input: """);
         System.out.printf(menu);
         Scanner in = new Scanner(System.in);
@@ -176,24 +176,19 @@ public class HomeScreen {
                         switch (choice){
                             case "1":
                                 System.out.println("Month to Date");
-                                for(String transaction: transactions){
-                                    String[] parts = parsedTranscations(transaction);
-                                    String[] strip = parts[0].split("\\|");
-                                    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-                                    LocalDate date = LocalDate.parse(strip[0]);
-                                    if(date.getYear() == current.getYear() && date.getMonth() == current.getMonth() && date.getDayOfMonth() <= current.getDayOfMonth()){
-                                        System.out.println(transaction);
-                                    }
-                                }
+                                reports("mtd");
                                 break;
                             case "2":
                                 System.out.println("Previous Month");
+                                reports("pm");
                                 break;
                             case "3":
                                 System.out.println("Year to Date");
+                                reports("yd");
                                 break;
                             case "4":
                                 System.out.println("Previous Year");
+                                reports("py");
                                 break;
                             case "5":
                                 System.out.println("Search by vendor");
@@ -244,6 +239,33 @@ public class HomeScreen {
     }
     public static String[] parsedTranscations(String s){
         return s.split("\\|");
+    }
+    public static void reports(String report){
+        LocalDate current = LocalDate.now();
+        ArrayList<String> transactions = getTranscations();
+        for(String transaction : transactions) {
+            String[] parts = parsedTranscations(transaction);
+            String[] strip = parts[0].split("\\|");
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+            LocalDate date = LocalDate.parse(strip[0]);
+            if (report.equals("mtd")&& date.getYear() == current.getYear() && date.getMonth() == current.getMonth() && date.getDayOfMonth() <= current.getDayOfMonth()) {
+                System.out.println(transaction);
+            }
+            else if(report.equals("pm") && date.getMonthValue() == current.getMonthValue() - 1 && date.getYear() == current.getYear()){
+                //previous month
+                System.out.println(transaction);
+            }
+            else if(report.equals("yd") && date.getYear() == current.getYear()){
+                //year to date
+                System.out.println(transaction);
+            }
+            else if(report.equals("py") && date.getYear() == current.getYear() - 1){
+                //previous year
+                System.out.println(transaction);
+            }
+
+        }
+
     }
 
 }
