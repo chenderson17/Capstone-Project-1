@@ -176,24 +176,28 @@ public class HomeScreen {
                         switch (choice){
                             case "1":
                                 System.out.println("Month to Date");
-                                reports("mtd");
+                                reports("mtd", in);
                                 break;
                             case "2":
                                 System.out.println("Previous Month");
-                                reports("pm");
+                                reports("pm", in);
                                 break;
                             case "3":
                                 System.out.println("Year to Date");
-                                reports("yd");
+                                reports("yd", in);
                                 break;
                             case "4":
                                 System.out.println("Previous Year");
-                                reports("py");
+                                reports("py", in);
                                 break;
                             case "5":
                                 System.out.printf("Search by vendor: ");
                                 Scanner sc = new Scanner(System.in);
-                                reports(sc.nextLine());
+                                reports(sc.nextLine(),in);
+                                break;
+                            case "6":
+                                System.out.println("Custom Search");
+                                customSearch(in);
                                 break;
                             default:
                                 System.out.println("Sorry, I didn't recognize that command");
@@ -215,6 +219,7 @@ public class HomeScreen {
                               * 3 - Year to Date
                               * 4 - Previous Year
                               * 5 - Search by Vendor
+                              * 6 - Custom Search
                               * 0 - Back
                               * H - Go back to home page
                           Your Input: """);
@@ -241,7 +246,7 @@ public class HomeScreen {
     public static String[] parsedTranscations(String s){
         return s.split("\\|");
     }
-    public static void reports(String report){
+    public static void reports(String report, Scanner in){
         LocalDate current = LocalDate.now();
         ArrayList<String> transactions = getTranscations();
         for(String transaction : transactions) {
@@ -265,7 +270,7 @@ public class HomeScreen {
 
                 System.out.println(transaction);
             }
-            else{
+            else {
                 //search
                 if(parts[3].toLowerCase().contains(report.toLowerCase())){
                     System.out.println(transaction);
@@ -275,6 +280,38 @@ public class HomeScreen {
 
         }
 
+    }
+    public static void customSearch(Scanner in){
+        /**
+         *o Start Date
+         * o End Date
+         * o Description
+         * o Vendor
+         * o Amount
+         */
+        System.out.printf("Enter the start date or press Enter: ");
+        String start = in.nextLine().toLowerCase();
+        LocalDate startDate = evaluateDate(start);
+        System.out.println(start);
+        System.out.printf("Enter the end date or press Enter:");
+        String end = in.nextLine().toLowerCase();
+        LocalDate endDate = evaluateDate(end);
+        System.out.printf("Enter the description of the transcation or press Enter: ");
+        String description = in.nextLine().toLowerCase();
+        System.out.printf("Enter the vendor or press Enter: ");
+        String vendor = in.nextLine().toLowerCase();
+        System.out.printf("Enter the price or press Enter: ");
+        String price = in.nextLine().toLowerCase();
+        for(String transaction: getTranscations()){
+            transaction = transaction.toLowerCase();
+            //individual transaction evaluate if it meets requiremnts
+            if(start != "" && transaction.contains(start) || end != "" && transaction.contains(end) || description != "" && transaction.contains(description) || vendor != "" && transaction.contains(vendor) || price != "" && transaction.contains(price)){
+                System.out.println(transaction);
+            }
+        }
+    }
+    public static LocalDate evaluateDate(String s){
+        return s == "" ? null : LocalDate.parse(s);
     }
 
 }
