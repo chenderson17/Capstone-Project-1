@@ -137,6 +137,7 @@ public class HomeScreen {
                               * 3 - Year to Date
                               * 4 - Previous Year
                               * 5 - Search by Vendor
+                              * 6 - Custom Search
                               * 0 - Back
                               * H - Go back to home page
                           Your Input: """);
