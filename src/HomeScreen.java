@@ -291,11 +291,11 @@ public class HomeScreen {
          * o Vendor
          * o Amount
          */
-        System.out.printf("Enter the start date or press Enter: ");
+        System.out.printf("Enter the start date(yyyy-mm-dd) or press Enter: ");
         String start = in.nextLine().toLowerCase();
         LocalDate startDate = evaluateDate(start);
         System.out.println(start);
-        System.out.printf("Enter the end date or press Enter:");
+        System.out.printf("Enter the end date(yyyy-mm-dd) or press Enter:");
         String end = in.nextLine().toLowerCase();
         LocalDate endDate = evaluateDate(end);
         System.out.printf("Enter the description of the transcation or press Enter: ");
