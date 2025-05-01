@@ -298,21 +298,48 @@ public class HomeScreen {
         String end = in.nextLine().toLowerCase();
         LocalDate endDate = evaluateDate(end);
         System.out.printf("Enter the description of the transcation or press Enter: ");
-        String description = in.nextLine().toLowerCase();
+        String description = in.nextLine().toLowerCase().trim();
         System.out.printf("Enter the vendor or press Enter: ");
-        String vendor = in.nextLine().toLowerCase();
+        String vendor = in.nextLine().toLowerCase().trim();
         System.out.printf("Enter the price or press Enter: ");
         String price = in.nextLine().toLowerCase();
         for(String transaction: getTranscations()){
-            transaction = transaction.toLowerCase();
+            String[] parts = transaction.split("\\|");
+            String[] stripDate = parts[0].split("\\|");
+            LocalDate current = LocalDate.parse(stripDate[0]);
             //individual transaction evaluate if it meets requiremnts
-            if(start != "" && transaction.contains(start) || end != "" && transaction.contains(end) || description != "" && transaction.contains(description) || vendor != "" && transaction.contains(vendor) || price != "" && transaction.contains(price)){
+            //System.out.println(Arrays.toString(parts));
+            if(evaluateDates(startDate,current,endDate) && parts[2].toLowerCase().contains(description) && parts[3].toLowerCase().contains(vendor) && parts[4].contains(price)){
                 System.out.println(transaction);
             }
         }
     }
     public static LocalDate evaluateDate(String s){
-        return s == "" ? null : LocalDate.parse(s);
+        return s == "" ? null: LocalDate.parse(s);
     }
+    public static Boolean evaluateDates(LocalDate min, LocalDate current, LocalDate max){
+        if(min == null && max == null){
+            return true;
+        }
+        else if(min != null && max == null){
+            if(current.isEqual(min) || current.isAfter(min)){
+                return true;
+            }
+            return false;
+        }
+        else if(min == null && max != null){
+            if(current.isBefore(max) || current.isEqual(max)){
+                return true;
+            }
+            return false;
+        }
+        else {
+            if (current.isEqual(min) || current.isAfter(min) && current.isBefore(max) || current.isEqual(max)) {
+                return true;
+            }
+            return false;
+        }
+    }
+
 
 }
