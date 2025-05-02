@@ -58,17 +58,14 @@ public class HomeScreen {
     }
     public static void addDeposit(Scanner in){
             try {
-                /*
-                System.out.printf("Enter the account number for the deposit or press e to exit: ");
-                int accountNumber = in.nextInt();
-                */
-                System.out.printf("Enter the amount you want to deposit:$");
-                double deposit = in.nextDouble();
-                handleDeposit(in,deposit);
-                while(!handleDeposit(in,deposit).equalsIgnoreCase("y")){
-                    System.out.printf("Enter the amount you want to deposit:$ ");
+                String confirm = "n";
+                double deposit = 0.00;
+                while(!confirm.equals("y")){
+                    System.out.printf("Enter the amount you want to deposit:");
                     deposit = in.nextDouble();
-                    handleDeposit(in,deposit);
+                    in.nextLine();
+                    System.out.printf("Does this look correct %.2f (Y/N):\n", deposit);
+                    confirm = in.nextLine();
                 }
                 System.out.println("Deposit Complete. Taking you back to the Main Menu");
                 FileWriter writer = new FileWriter("transactions.csv", true);
@@ -79,9 +76,9 @@ public class HomeScreen {
                 e.printStackTrace();
             }
     }
-    public static String handleDeposit(Scanner in,double deposit){
-        System.out.printf("Does this look correct %.2f (Y/N):", deposit);
-        return in.nextLine();
+    public static String handleDeposit(String res,double deposit){
+        System.out.printf("Does this look correct %.2f (Y/N):\n", deposit);
+        return res;
     }
     public static void makePayment(Scanner in){
         //what are you buying
@@ -294,7 +291,6 @@ public class HomeScreen {
         System.out.printf("Enter the start date(yyyy-mm-dd) or press Enter: ");
         String start = in.nextLine().toLowerCase();
         LocalDate startDate = evaluateDate(start);
-        System.out.println(start);
         System.out.printf("Enter the end date(yyyy-mm-dd) or press Enter:");
         String end = in.nextLine().toLowerCase();
         LocalDate endDate = evaluateDate(end);
