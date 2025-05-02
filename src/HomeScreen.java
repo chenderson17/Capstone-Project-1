@@ -65,7 +65,7 @@ public class HomeScreen {
                     deposit = in.nextDouble();
                     in.nextLine();
                     System.out.printf("Does this look correct %.2f (Y/N):\n", deposit);
-                    confirm = in.nextLine();
+                    confirm = in.nextLine().toLowerCase();
                 }
                 System.out.println("Deposit Complete. Taking you back to the Main Menu");
                 FileWriter writer = new FileWriter("transactions.csv", true);
@@ -306,7 +306,7 @@ public class HomeScreen {
             LocalDate current = LocalDate.parse(stripDate[0]);
             //individual transaction evaluate if it meets requiremnts
             //System.out.println(Arrays.toString(parts));
-            if(evaluateDates(startDate,current,endDate) && parts[2].toLowerCase().contains(description) && parts[3].toLowerCase().contains(vendor) && parts[4].contains(price)){
+            if(evaluateDates(startDate,current,endDate) && parts[2].toLowerCase().contains(description) && parts[3].toLowerCase().contains(vendor) && parts.length < 5? parts[3].contains(price):parts[4].contains(price)){
                 System.out.println(transaction);
             }
         }
