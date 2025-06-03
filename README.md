@@ -1,4 +1,4 @@
-﻿# Crestwood Finanical Bank Application
+﻿# Crestwood Finanical Banking Application
 ## By: Caroline Henderson
 ## Description:
 This project features a banking application that allows the user to make payments,deposits, and keeps a
