@@ -1,5 +1,6 @@
-﻿# Crestwood Finanical Banking Application
- ![ChatGPT Image Jun 3, 2025, 06_07_26 PM.png]
+﻿# Crestwood Financial Banking Application
+ ![Crestwood Financial Logo](ChatGPT%20Image%20Jun%203,%202025,%2006_07_26%20PM.png)
+
 ## By: Caroline Henderson
 ## Description:
 This project features a banking application that allows the user to make payments,deposits, and keeps a
